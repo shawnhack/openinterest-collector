@@ -9,14 +9,14 @@ import online.openinterest.collector.repository.MarketsRepository;
 @Service
 public class MarketsService {
 
-	@Autowired
-	private MarketsRepository marketsRepository;
+    @Autowired
+    private MarketsRepository marketsRepository;
 
-	/**
-	 * @return
-	 */
-	public int getOpenInterest() {
-		return (int) NumberUtils.toFloat(marketsRepository.getOpenInterest());
-	}
+    /**
+     * @return
+     */
+    public int getOpenInterest() {
+        return (int) NumberUtils.toFloat(marketsRepository.getOpenInterest());
+    }
 
 }
