@@ -8,11 +8,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class CollectorApplication {
 
-	/**
-	 * @param args
-	 * @throws Exception
-	 */
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(CollectorApplication.class);
-	}
+    /**
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(CollectorApplication.class);
+    }
+
 }
