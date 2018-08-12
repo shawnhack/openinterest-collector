@@ -6,15 +6,15 @@ import javax.persistence.Id;
 @Entity
 public class Markets {
 
-	@Id
-	private String marketId;
+    @Id
+    private String marketId;
 
-	public String getMarketId() {
-		return marketId;
-	}
+    public String getMarketId() {
+        return marketId;
+    }
 
-	public void setMarketId(String marketId) {
-		this.marketId = marketId;
-	}
+    public void setMarketId(String marketId) {
+        this.marketId = marketId;
+    }
 
 }

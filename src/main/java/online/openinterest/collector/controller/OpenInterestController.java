@@ -11,25 +11,25 @@ import online.openinterest.collector.service.MarketsService;
 @Controller
 public class OpenInterestController {
 
-	@Autowired
-	private MarketsService service;
+    @Autowired
+    private MarketsService service;
 
-	/**
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/openinterestpage")
-	public String getOpenInterestPage(Model model) {
-		model.addAttribute("openinterest", service.getOpenInterest());
-		return "openinterest";
-	}
+    /**
+     * @param model
+     * @return
+     */
+    @GetMapping("/openinterestpage")
+    public String getOpenInterestPage(Model model) {
+        model.addAttribute("openinterest", service.getOpenInterest());
+        return "openinterest";
+    }
 
-	/**
-	 * @return
-	 */
-	@GetMapping("/openinterest")
-	public ResponseEntity<Integer> getOpenInterest() {
-		return ResponseEntity.ok().body(service.getOpenInterest());
-	}
+    /**
+     * @return
+     */
+    @GetMapping("/openinterest")
+    public ResponseEntity<Integer> getOpenInterest() {
+        return ResponseEntity.ok().body(service.getOpenInterest());
+    }
 
 }

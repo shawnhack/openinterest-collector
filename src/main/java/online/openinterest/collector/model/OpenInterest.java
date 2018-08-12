@@ -8,25 +8,25 @@ import javax.persistence.Id;
 @Entity
 public class OpenInterest {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getAmount() {
-		return amount;
-	}
+    public String getAmount() {
+        return amount;
+    }
 
-	public void setAmount(String amount) {
-		this.amount = amount;
-	}
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
 
-	private String amount;
+    private String amount;
 }
