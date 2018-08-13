@@ -1,4 +1,4 @@
-package online.openinterest.collector.controller;
+package live.openinterest.collector.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
