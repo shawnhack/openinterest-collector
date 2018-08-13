@@ -12,21 +12,21 @@ public class OpenInterest {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String amount;
 
     public String getAmount() {
         return amount;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setAmount(String amount) {
         this.amount = amount;
     }
 
-    private String amount;
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
