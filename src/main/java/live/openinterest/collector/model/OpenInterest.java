@@ -1,4 +1,4 @@
-package online.openinterest.collector.model;
+package live.openinterest.collector.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,9 +1,9 @@
-package online.openinterest.collector.repository;
+package live.openinterest.collector.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import online.openinterest.collector.model.Markets;
+import live.openinterest.collector.model.Markets;
 
 public interface MarketsRepository extends JpaRepository<Markets, String> {
 
