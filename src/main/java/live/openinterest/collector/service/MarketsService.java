@@ -4,7 +4,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import live.openinterest.collector.repository.MarketsRepository;
+import live.openinterest.collector.augur.repository.MarketsRepository;
 
 @Service
 public class MarketsService {
@@ -15,8 +15,8 @@ public class MarketsService {
     /**
      * @return
      */
-    public int getOpenInterest() {
-        return (int) NumberUtils.toFloat(marketsRepository.getOpenInterest());
+    public float getOpenInterest() {
+        return NumberUtils.toFloat(marketsRepository.getOpenInterest());
     }
 
 }
