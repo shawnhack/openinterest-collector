@@ -14,66 +14,57 @@ import javax.persistence.Table;
 @Table(name = "openinterest")
 public class OpenInterest {
 
-    /**
-     * 
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "openinterest_id_seq")
-    @SequenceGenerator(name = "openinterest_id_seq", sequenceName = "openinterest_id_seq", allocationSize = 1)
-    @Column(name = "id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "openinterest_id_seq")
+	@SequenceGenerator(name = "openinterest_id_seq", sequenceName = "openinterest_id_seq", allocationSize = 1)
+	@Column(name = "id")
+	private Long id;
 
-    /**
-     * 
-     */
-    @Column(name = "amount")
-    private float amount;
+	@Column(name = "amount")
+	private float amount;
 
-    /**
-     * 
-     */
-    @Column(name = "record_time")
-    private LocalDateTime timestamp;
+	@Column(name = "record_time")
+	private LocalDateTime timestamp;
 
-    /**
-     * @return
-     */
-    public Long getId() {
-        return id;
-    }
+	/**
+	 * @return
+	 */
+	public Long getId() {
+		return id;
+	}
 
-    /**
-     * @return
-     */
-    public float getAmount() {
-        return amount;
-    }
+	/**
+	 * @return
+	 */
+	public float getAmount() {
+		return amount;
+	}
 
-    /**
-     * @param amount
-     */
-    public void setAmount(float amount) {
-        this.amount = amount;
-    }
+	/**
+	 * @param amount
+	 */
+	public void setAmount(float amount) {
+		this.amount = amount;
+	}
 
-    /**
-     * @return
-     */
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
+	/**
+	 * @return
+	 */
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
 
-    /**
-     * @param timestamp
-     */
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
+	/**
+	 * @param timestamp
+	 */
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
+	}
 
-    /**
-     * @param id
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
+	/**
+	 * @param id
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 }
