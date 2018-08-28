@@ -15,7 +15,7 @@ public class MarketsService {
     /**
      * @return
      */
-    public float getOpenInterest() {
+    public float getCurrentOpenInterest() {
         return NumberUtils.toFloat(marketsRepository.getOpenInterest());
     }
 
