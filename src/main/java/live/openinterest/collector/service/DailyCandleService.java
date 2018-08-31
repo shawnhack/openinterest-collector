@@ -47,26 +47,76 @@ public class DailyCandleService {
 	}
 
 	/**
-	 * @param candlesticks
+	 * @param ticks
 	 */
-	private void updateData(List<DailyCandle> candlesticks) {
+	private List<DailyCandle> buildCandlesticks(List<OpenInterest> ticks) {
 
-		List<DailyCandle> savedCandles = repository.findAll();
+		List<DailyCandle> candlesticks = new ArrayList<DailyCandle>();
 
-		Map<LocalDate, DailyCandle> candleMap = candlesticks.stream()
-				.collect(Collectors.toMap(c -> c.getDate(), c -> c));
+		DailyCandle currentCandlestick = new DailyCandle();
 
-		for (DailyCandle dailyCandle : savedCandles) {
-			LocalDate date = dailyCandle.getDate();
+		for (OpenInterest tick : ticks) {
+			LocalDateTime timestamp = tick.getTimestamp();
+			float amount = tick.getAmount();
 
-			DailyCandle newCandle = candleMap.get(date);
+			LocalDate candleDate = timestamp.toLocalDate();
 
-			boolean updated = updateCandle(dailyCandle, newCandle);
-
-			if (updated) {
-				repository.save(dailyCandle);
+			if (!candleDate.equals(currentCandlestick.getDate())) {
+				currentCandlestick = handleNewCandle(candlesticks, currentCandlestick, candleDate);
 			}
+
+			currentCandlestick.update(amount);
 		}
+
+		candlesticks.add(currentCandlestick);
+
+		return candlesticks;
+	}
+
+	/**
+	 * @param candlesticks
+	 * @param currentCandlestick
+	 * @return
+	 */
+	private DailyCandle getNextCandle(float open, DailyCandle currentCandlestick, LocalDate candleDate) {
+
+		DailyCandle nextCandlestick = new DailyCandle();
+		nextCandlestick.update(open);
+		nextCandlestick.setDate(candleDate);
+
+		return nextCandlestick;
+	}
+
+	/**
+	 * @param candlesticks
+	 * @param currentCandlestick
+	 * @param candleDate
+	 * @return
+	 */
+	private DailyCandle handleNewCandle(List<DailyCandle> candlesticks, DailyCandle currentCandlestick,
+			LocalDate candleDate) {
+
+		float close = 0;
+
+		// Previous completed candlestick
+		if (currentCandlestick.getDate() != null) {
+			close = handlePreviousCandle(candlesticks, currentCandlestick);
+		}
+
+		currentCandlestick = getNextCandle(close, currentCandlestick, candleDate);
+
+		return currentCandlestick;
+	}
+
+	/**
+	 * @param candlesticks
+	 * @param currentCandlestick
+	 * @return
+	 */
+	private float handlePreviousCandle(List<DailyCandle> candlesticks, DailyCandle currentCandlestick) {
+		float close = currentCandlestick.getClose();
+		candlesticks.add(currentCandlestick);
+		return close;
 	}
 
 	/**
@@ -105,76 +155,26 @@ public class DailyCandleService {
 	}
 
 	/**
-	 * @param ticks
+	 * @param candlesticks
 	 */
-	private List<DailyCandle> buildCandlesticks(List<OpenInterest> ticks) {
+	private void updateData(List<DailyCandle> candlesticks) {
 
-		List<DailyCandle> candlesticks = new ArrayList<DailyCandle>();
+		List<DailyCandle> savedCandles = repository.findAll();
 
-		DailyCandle currentCandlestick = new DailyCandle();
+		Map<LocalDate, DailyCandle> candleMap = candlesticks.stream()
+				.collect(Collectors.toMap(c -> c.getDate(), c -> c));
 
-		for (OpenInterest tick : ticks) {
-			LocalDateTime timestamp = tick.getTimestamp();
-			float amount = tick.getAmount();
+		for (DailyCandle dailyCandle : savedCandles) {
+			LocalDate date = dailyCandle.getDate();
 
-			LocalDate candleDate = timestamp.toLocalDate();
+			DailyCandle newCandle = candleMap.get(date);
 
-			if (!candleDate.equals(currentCandlestick.getDate())) {
-				currentCandlestick = handleNewCandle(candlesticks, currentCandlestick, candleDate);
+			boolean updated = updateCandle(dailyCandle, newCandle);
+
+			if (updated) {
+				repository.save(dailyCandle);
 			}
-
-			currentCandlestick.update(amount);
 		}
-
-		candlesticks.add(currentCandlestick);
-
-		return candlesticks;
-	}
-
-	/**
-	 * @param candlesticks
-	 * @param currentCandlestick
-	 * @param candleDate
-	 * @return
-	 */
-	private DailyCandle handleNewCandle(List<DailyCandle> candlesticks, DailyCandle currentCandlestick,
-			LocalDate candleDate) {
-
-		float close = 0;
-
-		// Previous completed candlestick
-		if (currentCandlestick.getDate() != null) {
-			close = handlePreviousCandle(candlesticks, currentCandlestick);
-		}
-
-		currentCandlestick = getNextCandle(close, currentCandlestick, candleDate);
-
-		return currentCandlestick;
-	}
-
-	/**
-	 * @param candlesticks
-	 * @param currentCandlestick
-	 * @return
-	 */
-	private DailyCandle getNextCandle(float open, DailyCandle currentCandlestick, LocalDate candleDate) {
-
-		DailyCandle nextCandlestick = new DailyCandle();
-		nextCandlestick.update(open);
-		nextCandlestick.setDate(candleDate);
-
-		return nextCandlestick;
-	}
-
-	/**
-	 * @param candlesticks
-	 * @param currentCandlestick
-	 * @return
-	 */
-	private float handlePreviousCandle(List<DailyCandle> candlesticks, DailyCandle currentCandlestick) {
-		float close = currentCandlestick.getClose();
-		candlesticks.add(currentCandlestick);
-		return close;
 	}
 
 }
